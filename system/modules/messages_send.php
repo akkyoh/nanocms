@@ -4,7 +4,7 @@ if(!users::is_auth($auth_user))
     exit;
 
 $user_d = $_GET['id'];
-$text = $_POST['text'];
+$text = trim($_POST['text']);
 
 if(mb_strlen($text, 'UTF-8') > 10240)
     die(json_encode('Сообщение не должно превышать 10240 символов.'));

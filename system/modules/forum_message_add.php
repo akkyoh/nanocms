@@ -3,7 +3,7 @@
 if(!users::is_auth($auth_user))
     exit;
 
-$text = $_POST['text'];
+$text = trim($_POST['text']);
 $theme = $_GET['theme'];
 
 if(mb_strlen($text, 'UTF-8') > 10240)

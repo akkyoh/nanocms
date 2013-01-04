@@ -1,6 +1,6 @@
 <?php
 
-$n_or_m = $_POST['name'];
+$n_or_m = trim($_POST['name']);
 
 $status = $db -> query("SELECT `id`,`mail`,`login` from `users` WHERE `login` = ? or `mail` = ? LIMIT 1", $n_or_m, $n_or_m);
 

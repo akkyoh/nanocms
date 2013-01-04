@@ -11,8 +11,8 @@ $user_g = $_GET['user'];
 $profile = new profile($user_g);
 $user = new users($user_g, 'sex, mail, password');
 
-$field = $_POST['field'];
-$value = $_POST['value'];
+$field = trim($_POST['field']);
+$value = trim($_POST['value']);
 
 if($field == 'password' and mb_strlen($value, 'UTF-8') >= 6 and mb_strlen($value, 'UTF-8') <= 32)
     $user -> set_password(encrypt_password($value));

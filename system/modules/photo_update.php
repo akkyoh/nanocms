@@ -4,8 +4,8 @@ if(!users::is_auth($auth_user))
     exit;
 
 $id = $_POST['id'];
-$field = $_POST['field'];
-$value = $_POST['value'];
+$field = trim($_POST['field']);
+$value = trim($_POST['value']);
 
 if($field == 'name' and (mb_strlen($value, 'UTF-8') > 192 or mb_strlen($value, 'UTF-8') < 3)){
     echo json_encode('Название фотографии не должно быть менее 3 символов и не более 192 символов.'); 

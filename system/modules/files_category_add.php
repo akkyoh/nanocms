@@ -4,7 +4,7 @@ if(!users::is_admin($user_id))
     exit;
 
 $about = $_POST['about'];
-$name = $_POST['name'];
+$name = trim($_POST['name']);
 $parent = $_POST['parent'];
 $filetypes = $_POST['filetypes'];
 $id = $_POST['id'];

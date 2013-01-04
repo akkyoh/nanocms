@@ -7,13 +7,13 @@ if($config['demo'] == 'TRUE')
     exit;
 
 $id = $_POST['id'];
-$name = $_POST['name'];
-$module = $_POST['module'];
+$name = trim($_POST['name']);
+$module = trim($_POST['module']);
 $page_id = $_POST['page'];
-$image = $_POST['image'];
-$about = $_POST['about'];
+$image = trim($_POST['image']);
+$about = trim($_POST['about']);
 if($_POST['module_custom'] != '')
-    $module = $_POST['module_custom'];
+    $module = trim($_POST['module_custom']);
 if($module == 'divider')
     $module = '';
 

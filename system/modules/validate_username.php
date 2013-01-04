@@ -1,6 +1,6 @@
 <?php
 
-$name = $_GET['name'];
+$name = trim($_GET['name']);
 
 $q = $db -> query("SELECT 1 from `users` WHERE `login`=?", $name);
 

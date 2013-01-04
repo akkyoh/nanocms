@@ -3,7 +3,7 @@
 if(!users::is_auth($auth_user))
     exit;
 
-$text = $_POST['text'];
+$text = trim($_POST['text']);
 
 if(mb_strlen($text, 'UTF-8') > 512)
     die(json_encode('Сообщение не должно превышать 512 символов.'));

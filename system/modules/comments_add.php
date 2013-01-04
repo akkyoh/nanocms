@@ -4,7 +4,7 @@ if(!users::is_auth($auth_user))
     exit;
 
 $id = $_GET['id'];
-$text = $_POST['text'];
+$text = trim($_POST['text']);
 $type = $_GET['type'];
 
 if(mb_strlen($text, 'UTF-8') > 512)

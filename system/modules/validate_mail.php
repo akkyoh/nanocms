@@ -1,6 +1,6 @@
 <?php
 
-$mail = $_GET['mail'];
+$mail = trim($_GET['mail']);
 
 $q = $db -> query("SELECT 1 from `users` WHERE `mail` = ?;", $mail);
 

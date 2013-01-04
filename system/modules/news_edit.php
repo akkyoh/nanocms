@@ -4,9 +4,9 @@ if(!users::is_admin($user_id))
     exit;
 
 $id = $_GET['id'];
-$text = $_POST['text'];
+$text = trim($_POST['text']);
 $category = $_POST['category'];
-$topic = $_POST['topic'];
+$topic = trim($_POST['topic']);
 
 if(!empty($_POST['comments']))
     $comments = 1;

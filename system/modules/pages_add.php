@@ -4,10 +4,10 @@ if(!users::is_admin($user_id))
     exit;
 
 $id = $_POST['id'];
-$title = $_POST['title'];
-$description = $_POST['description'];
-$keywords = $_POST['keywords'];
-$page = $_POST['page'];
+$title = trim($_POST['title']);
+$description = trim($_POST['description']);
+$keywords = trim($_POST['keywords']);
+$page = trim($_POST['page']);
 
 if(mb_strlen($title, 'UTF-8') > 10240 or empty($title))
     die(json_encode('Заголовок не должен быть пустым или превышать 248 символов.'));

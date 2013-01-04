@@ -3,8 +3,8 @@
 if(!users::is_admin($user_id))
     exit;
 
-$about = $_POST['about'];
-$name = $_POST['name'];
+$about = trim($_POST['about']);
+$name = trim($_POST['name']);
 $id = $_POST['id'];
 
 if(mb_strlen($about, 'UTF-8') > 512)
