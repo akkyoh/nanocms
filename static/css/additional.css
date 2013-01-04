@@ -1,0 +1,36 @@
+h3, p {
+    white-space: normal !important;
+}
+.ui-icon-user { background:  url(/static/images/111-user.png) 50% 50% no-repeat;}
+.ui-icon-group { background:  url(/static/images/112-group.png) 50% 50% no-repeat;}
+.ui-icon-pencil { background:  url(/static/images/187-pencil.png) 50% 50% no-repeat;}
+.ui-icon-compass { background:  url(/static/images/71-compass.png) 50% 50% no-repeat;}
+.ui-icon-key { background:  url(/static/images/30-key.png) 50% 50% no-repeat;}
+.ui-icon-messages { background:  url(/static/images/18-envelope.png) 50% 50% no-repeat;}
+.ui-icon-house { background:  url(/static/images/53-house.png) 50% 50% no-repeat;}
+.ui-icon-clock { background:  url(/static/images/11-clock.png) 50% 50% no-repeat;}
+.ui-icon-map { background:  url(/static/images/07-map-marker.png) 50% 50% no-repeat;}
+
+.footer_counter img {
+    opacity: 0.3;
+}
+.footer_counter img:hover {
+    opacity: 1.0;
+}
+.error_message {
+    padding-top: 15px;
+}
+.image-radius {-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;display: inline-block;}
+
+@media all and (min-width: 650px){
+	
+       .content-secondary {
+                width: 65%;
+                float: right;
+       }
+	.content-primary {
+                width: 33%;
+                float: left;
+	}
+	
+}
