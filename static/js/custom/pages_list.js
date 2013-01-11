@@ -52,7 +52,7 @@ function load_pages(n, status){
 
             if(i == 0)
             {
-                ul += '<ul data-role="listview" id="gusetbook_list" data-inset="true" data-max="'+item+'"><li data-role="list-divider">Страницы</li>';
+                ul += '<ul data-role="listview" id="pages_list" data-inset="true" data-max="'+item+'"><li data-role="list-divider">Страницы</li>';
                 max_n = item;
             }
             else

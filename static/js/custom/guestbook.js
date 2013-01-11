@@ -96,7 +96,8 @@ function success_send(text){
     if(text != 'true')
         return alert_message(text, 'information', 3);
         
-    load_guestbook(0, true);
+    n = 0;
+    load_guestbook(n, true);
     $('#guestbook_send').find('textarea').val('');
         
     return true;

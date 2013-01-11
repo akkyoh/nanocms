@@ -10,7 +10,8 @@ $('#page_forum_theme_read').bind('pageshow', function () {
         timeout: sisyphus_time
     });  
     
-    load_messages(0, true);
+    n = 0;
+    load_messages(n, true);
     
     $('#markitup').markItUp(mySettings);
     
@@ -175,7 +176,8 @@ function success_send(text){
     if(text != 'true')
         return alert_message(text, 'information', 3);
         
-    load_messages(0, true);
+    n = 0;
+    load_messages(n, true);
     $('#message_send').find('textarea').val('');
         
     return true;

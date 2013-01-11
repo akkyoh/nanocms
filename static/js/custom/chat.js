@@ -108,7 +108,8 @@ function success_send(text){
     if(text != 'true')
         return alert_message(text, 'information', 3);
        
-    load_chat(0, true);
+    n = 0;
+    load_chat(n, true);
     $('#chat_send').find('textarea').val('');
         
     return true;

@@ -121,7 +121,8 @@ function success_send(text){
     if(text != 'true')
         return alert_message(text, 'information', 3);
         
-    load_comments(0, true);
+    n = 0;
+    load_comments(n, true);
     $('#comments_send').find('textarea').val('');
         
     return true;

@@ -91,7 +91,8 @@ function s_send(text){
     if(text != 'true')
         return alert_message(text, 'information', 5);
         
-    u_messages(0, true);
+    n = 0;
+    u_messages(n, true);
     $('#message_send').find('textarea').val('');
         
     return true;
