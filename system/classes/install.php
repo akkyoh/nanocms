@@ -18,25 +18,25 @@ class install
         $status['logs'] = TRUE;
         $status['installed'] = TRUE;
 
-        if(!is_writable('./system/config.ini'))
+        if(!is_writable($_SERVER['DOCUMENT_ROOT'].'/system/config.ini'))
             $status['result'] = $status['config'] = FALSE;
 
-        if(!is_writable('./system/files/avatars/'))
+        if(!is_writable($_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'))
             $status['result'] = $status['avatar'] = FALSE;
 
-        if(!is_writable('./system/files/files/'))
+        if(!is_writable($_SERVER['DOCUMENT_ROOT'].'/system/files/files/'))
             $status['result'] = $status['files'] = FALSE;
 
-        if(!is_writable('./system/files/photos/'))
+        if(!is_writable($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'))
             $status['result'] = $status['photos'] = FALSE;
 
-        if(!is_writable('./system/files/temporary/'))
+        if(!is_writable($_SERVER['DOCUMENT_ROOT'].'/system/files/temporary/'))
             $status['result'] = $status['temporary'] = FALSE;
 
-        if(!is_writable('./system/files/cache/'))
+        if(!is_writable($_SERVER['DOCUMENT_ROOT'].'/system/files/cache/'))
             $status['result'] = $status['cache'] = FALSE;
 
-        if(!is_writable('./system/logs/'))
+        if(!is_writable($_SERVER['DOCUMENT_ROOT'].'/system/logs/'))
             $status['result'] = $status['logs'] = FALSE;
 
         if(!empty($config['db_host']))

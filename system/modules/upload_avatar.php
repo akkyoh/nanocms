@@ -34,7 +34,7 @@ if (strpos($contentType, "multipart") !== false) {
     
     if (isset($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
 
-        $upload = fopen('./system/files/temporary/'.md5($name).'.part', $part == 0 ? "wb" : "ab");
+        $upload = fopen($_SERVER['DOCUMENT_ROOT'].'/system/files/temporary/'.md5($name).'.part', $part == 0 ? "wb" : "ab");
 	
         if ($upload) {
 	
@@ -64,27 +64,27 @@ if (strpos($contentType, "multipart") !== false) {
 
 }
 
-unlink('./system/files/avatars/'.$user_id.'.jpg');
-unlink('./system/files/avatars/'.$user_id.'_medium.jpg');
-unlink('./system/files/avatars/'.$user_id.'_small.jpg');
+unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'.jpg');
+unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'_medium.jpg');
+unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'_small.jpg');
 
 if (!$part or $part == $parts - 1){
     
-    rename('./system/files/temporary/'.md5($name).'.part', './system/files/avatars/'.$user_id.'.'.$type); # Перемещаем 
+    rename($_SERVER['DOCUMENT_ROOT'].'/system/files/temporary/'.md5($name).'.part', $_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'.'.$type); # Перемещаем 
     if($image[0] > 1024 or $image[1] > 1024)
-        image_resize('./system/files/avatars/'.$user_id.'.'.$type, 1024, TRUE, './system/files/avatars/'.$user_id.'.'.$type, 1024);
+        image_resize($_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'.'.$type, 1024, TRUE, $_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'.'.$type, 1024);
     
     if($type != 'jpg'){
         
-        image_convert('./system/files/avatars/'.$user_id.'.'.$type, './system/files/avatars/'.$user_id.'.jpg', 'jpg');
-        unlink('./system/files/avatars/'.$user_id.'.'.$type);
+        image_convert($_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'.'.$type, $_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'.jpg', 'jpg');
+        unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'.'.$type);
         
     }
     
     
-    image_crop('./system/files/avatars/'.$user_id.'.jpg', './system/files/avatars/'.$user_id.'_small.jpg');
-    image_resize('./system/files/avatars/'.$user_id.'.jpg', 100, TRUE, './system/files/avatars/'.$user_id.'_medium.jpg');
-    image_resize('./system/files/avatars/'.$user_id.'_small.jpg', 0, TRUE, './system/files/avatars/'.$user_id.'_small.jpg', 100);
+    image_crop($_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'.jpg', $_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'_small.jpg');
+    image_resize($_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'.jpg', 100, TRUE, $_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'_medium.jpg');
+    image_resize($_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'_small.jpg', 0, TRUE, $_SERVER['DOCUMENT_ROOT'].'/system/files/avatars/'.$user_id.'_small.jpg', 100);
     
 }
 

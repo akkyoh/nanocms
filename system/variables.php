@@ -1,6 +1,6 @@
 <?php
 
-define('VERSION', '1.0.4');
+define('VERSION', '1.0.5');
 define('SYSTEM_ID', 999);
 
 $modules = array('divider' => 'Разделитель',

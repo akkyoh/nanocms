@@ -166,16 +166,16 @@ class photos {
                 
                 foreach($photos as $data){
                     
-                    unlink('./system/files/photos/'.$data['id'].'.jpg');
-                    unlink('./system/files/photos/'.$data['id'].'_preview.jpg');
+                    unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$data['id'].'.jpg');
+                    unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$data['id'].'_preview.jpg');
                     if($data['width'] >= 640 or $data['height'] >= 640)
-                        unlink('./system/files/photos/'.$data['id'].'_640.jpg');
+                        unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$data['id'].'_640.jpg');
                     if($data['width'] >= 360 or $data['height'] >= 360)
-                        unlink('./system/files/photos/'.$data['id'].'_360.jpg');
+                        unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$data['id'].'_360.jpg');
                     if($data['width'] >= 240 or $data['height'] >= 240)
-                        unlink('./system/files/photos/'.$data['id'].'_240.jpg');
+                        unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$data['id'].'_240.jpg');
                     if($data['width'] >= 128 or $data['height'] >= 128)
-                        unlink('./system/files/photos/'.$data['id'].'_128.jpg');
+                        unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$data['id'].'_128.jpg');
                     
                 }
                 
@@ -202,16 +202,16 @@ class photos {
         
         if($db -> query("DELETE FROM `photos` WHERE `id` = ?;", $id)){
         
-            unlink('./system/files/photos/'.$id.'.jpg');
-            unlink('./system/files/photos/'.$id.'_preview.jpg');
+            unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$id.'.jpg');
+            unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$id.'_preview.jpg');
             if($photo[0]['width'] >= 640 or $photo[0]['height'] >= 640)
-                unlink('./system/files/photos/'.$id.'_640.jpg');
+                unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$id.'_640.jpg');
             if($photo[0]['width'] >= 360 or $photo[0]['height'] >= 360)
-                unlink('./system/files/photos/'.$id.'_360.jpg');
+                unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$id.'_360.jpg');
             if($photo[0]['width'] >= 240 or $photo[0]['height'] >= 240)
-                unlink('./system/files/photos/'.$id.'_240.jpg');
+                unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$id.'_240.jpg');
             if($photo[0]['width'] >= 128 or $photo[0]['height'] >= 128)
-                unlink('./system/files/photos/'.$id.'_128.jpg');
+                unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$id.'_128.jpg');
          
             comments::delete_category($id, 'photos');
             

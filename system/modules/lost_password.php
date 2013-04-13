@@ -15,7 +15,7 @@ else
     $key = random_string(32, 'lower,upper,numbers');
     $password = random_string(8, 'lower,upper,numbers');
     
-    $subject = 'Восстановление пароля - '.$_SERVER['HTTP_HOST'];
+    $subject = 'Восстановление пароля';
 $text = 'Восстановление пароля
 
 Имя пользователя: '.$name.'
@@ -25,10 +25,9 @@ $text = 'Восстановление пароля
 
 Постарайтесь больше не забывать свой пароль!
  
-Вы получили данное письмо, так как являетесь зарегистрированным участником проекта.
-С уважением, администрация проекта http://'.$_SERVER['HTTP_HOST'];
+Вы получили данное письмо, так как являетесь зарегистрированным участником проекта.';
     
-    send_mail($_SERVER['HTTP_HOST'],
+    send_mail($config['name'],
               'robot@'.$_SERVER['HTTP_HOST'],
               $name,
               $mail,

@@ -1,7 +1,7 @@
 <?php
 
 define('SALT', '93/.+GgZp:I+]ue}HK?<)tiG}-ZNaO8№');
-define('SALT_PASSWORD', '$2a$10$iROiOCyRmhyri6OViBr0ia');
+define('SALT_PASSWORD', '$2');
 
 function set_timezone($update = FALSE){
     
@@ -37,7 +37,7 @@ function add_log($file, $text){
     $text = str_replace("\n", ' ', $text);
     $text = str_replace("\r", ' ', $text);
     
-    $fp = fopen('./system/logs/'.$file.'.txt','a+');
+    $fp = fopen($_SERVER['DOCUMENT_ROOT'].'/system/logs/'.$file.'.txt','a+');
     flock($fp,LOCK_EX);
     fputs($fp,date('d.m.y в H:i:s').': '.$text.PHP_EOL);
     fflush($fp);
@@ -180,32 +180,32 @@ function loading(&$config, &$db, &$start_time, &$user_id = 1){
     header("Pragma: no-cache");
     header("X-Powered-CMS: NanoCMS");
     
-    include './system/classes/database.php';
-    include './system/classes/users.php';
-    include './system/classes/menu.php';
-    include './system/classes/messages.php';
-    include './system/classes/news.php';
-    include './system/classes/profile.php';
-    include './system/classes/comments.php';
-    include './system/classes/guestbook.php';
-    include './system/classes/chat.php';
-    include './system/classes/forum.php';
-    include './system/classes/daily.php';
-    include './system/classes/photos.php';
-    include './system/classes/files.php';
-    include './system/classes/pages.php';
-    include './system/classes/install.php';
-    include './system/classes/cache.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/database.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/users.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/menu.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/messages.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/news.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/profile.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/comments.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/guestbook.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/chat.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/forum.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/daily.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/photos.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/files.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/pages.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/install.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/cache.php';
     
-    include './system/classes/phpmailer/phpmailer.php';
-    include './system/classes/phpmailer/smtp.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/phpmailer/phpmailer.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/system/classes/phpmailer/smtp.php';
 
     $config = read_config();
     $db = new db($config['db_host'], $config['db_user'], $config['db_password'], $config['db_name']);
     
-    $classes  = opendir('./custom/classes');
+    $classes  = opendir($_SERVER['DOCUMENT_ROOT'].'/custom/classes');
     while ($file = readdir($classes)) {
-       include_once './custom/classes/'.$file;
+       include_once $_SERVER['DOCUMENT_ROOT'].'/custom/classes/'.$file;
     }
     
     if(empty($config['db_host']) and !isset($_GET['modules']))
@@ -262,6 +262,9 @@ function loading(&$config, &$db, &$start_time, &$user_id = 1){
 }
 
 function read_config($path = '.'){
+    
+    if($path = '.')
+        $path = $_SERVER['DOCUMENT_ROOT'];
     
     return unserialize(decrypt(file_get_contents($path.'/system/config.ini')));
     
@@ -410,10 +413,10 @@ function head($title, $description = NULL, $keywords = NULL, $canonical = NULL){
             $array_replace[10] = '<a href="/dialog/profile/" data-icon="user" class="ui-btn-right" data-rel="dialog" data-theme="'.$theme.'" data-transition="flip">Профиль</a>';
         }
     
-    if(file_exists('./custom/templates/head.tpl'))
-        $content = file_get_contents('./custom/templates/head.tpl');
+    if(file_exists($_SERVER['DOCUMENT_ROOT'].'/custom/templates/head.tpl'))
+        $content = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/custom/templates/head.tpl');
     else
-        $content = file_get_contents('./system/templates/head.tpl');
+        $content = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/system/templates/head.tpl');
         
     echo(str_ireplace($array_elements, $array_replace, $content));
     
@@ -436,10 +439,10 @@ function footer(){
         else
             $array_replace[2] = '';
             
-        if(file_exists('./custom/templates/footer.tpl'))
-            $content = file_get_contents('./custom/templates/footer.tpl');
+        if(file_exists($_SERVER['DOCUMENT_ROOT'].'/custom/templates/footer.tpl'))
+            $content = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/custom/templates/footer.tpl');
         else
-            $content = file_get_contents('./system/templates/footer.tpl');
+            $content = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/system/templates/footer.tpl');
 
         echo(str_ireplace($array_elements, $array_replace, $content));
         
@@ -856,6 +859,8 @@ function send_mail($name_from, // имя отправителя
                    $body, // текст письма
                    $unsubscribe = NULL) {
     
+    global $config;
+    
     $mail = new PHPMailer(false);
     
     if(!empty($unsubscribe)){
@@ -869,7 +874,22 @@ function send_mail($name_from, // имя отправителя
     $mail -> SetFrom($email_from, $name_from);
     $mail -> Subject = $subject;
     $mail -> Body = $body;
-    //$mail -> MsgHTML($body);
+    
+    if(file_exists($_SERVER['DOCUMENT_ROOT'].'/custom/templates/mail/header.tpl'))
+        $header = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/custom/templates/mail/header.tpl');
+    else
+        $header = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/system/templates/mail/header.tpl');
+
+    if(file_exists($_SERVER['DOCUMENT_ROOT'].'/custom/templates/mail/footer.tpl'))
+        $footer = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/custom/templates/mail/footer.tpl');
+    else
+        $footer = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/system/templates/mail/footer.tpl');
+    
+    $header = str_ireplace(array('{url}','{url_name}'), array(protect_echo($_SERVER['HTTP_HOST']), $config['name']), $header);
+    $footer = str_ireplace(array('{url}','{url_name}'), array(protect_echo($_SERVER['HTTP_HOST']), $config['name']), $footer);
+    
+    $mail -> MsgHTML($header.nl2br($body).$footer);
+    
     $mail -> Send();
     $mail -> ClearAddresses();
     $mail -> ClearAttachments();

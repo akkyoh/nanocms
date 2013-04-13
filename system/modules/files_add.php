@@ -31,7 +31,7 @@ if (strpos($contentType, "multipart") !== false) {
     
     if (isset($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
 
-        $upload = fopen('./system/files/temporary/'.md5($name).'.part', $part == 0 ? "wb" : "ab");
+        $upload = fopen($_SERVER['DOCUMENT_ROOT'].'/system/files/temporary/'.md5($name).'.part', $part == 0 ? "wb" : "ab");
 	
         if ($upload) {
 	
@@ -65,13 +65,13 @@ if (!$part or $part == $parts - 1){
     
     $file_id = files::add_file(str_replace('.'.$type, '', $name), $type, $category, $size, $image[0], $image[1], $music[1], $music[0]);
     
-    rename('./system/files/temporary/'.md5($name).'.part', './system/files/files/'.$file_id.'.download'); # Перемещаем 
+    rename($_SERVER['DOCUMENT_ROOT'].'/system/files/temporary/'.md5($name).'.part', $_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.$file_id.'.download'); # Перемещаем 
     
     if($type == 'jpeg' or $type == 'jpg' or $type == 'gif' or $type == 'png'){
         
-        image_convert('./system/files/files/'.$file_id.'.download', './system/files/files/'.$file_id.'.preview', 'jpg', $type);
-        image_crop('./system/files/files/'.$file_id.'.preview', './system/files/files/'.$file_id.'.preview', 'square', FALSE, 'jpg');
-        image_resize('./system/files/files/'.$file_id.'.preview', 0, TRUE, './system/files/files/'.$file_id.'.preview', 100);
+        image_convert($_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.$file_id.'.download', $_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.$file_id.'.preview', 'jpg', $type);
+        image_crop($_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.$file_id.'.preview', $_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.$file_id.'.preview', 'square', FALSE, 'jpg');
+        image_resize($_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.$file_id.'.preview', 0, TRUE, $_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.$file_id.'.preview', 100);
         
     }
     

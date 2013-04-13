@@ -12,9 +12,9 @@ class cache
         
         $this -> file = $file;
         
-        if(file_exists('./system/files/cache/'.$this -> file))
+        if(file_exists($_SERVER['DOCUMENT_ROOT'].'/system/files/cache/'.$this -> file))
         {
-             $this -> cache = file_get_contents ('./system/files/cache/'.$this -> file);
+             $this -> cache = file_get_contents ($_SERVER['DOCUMENT_ROOT'].'/system/files/cache/'.$this -> file);
              $this -> status = TRUE;
         }
         else
@@ -35,7 +35,7 @@ class cache
     public function write($object)
     {
         
-        $fp = fopen('./system/files/cache/'.$this -> file, 'w');
+        $fp = fopen($_SERVER['DOCUMENT_ROOT'].'/system/files/cache/'.$this -> file, 'w');
         flock($fp, LOCK_EX);
         fputs($fp, serialize($object));
         fflush($fp);
@@ -54,7 +54,7 @@ class cache
         if($this -> status == TRUE)
         {
             $this -> status = FALSE;
-            unlink('./system/files/cache/'.$this -> file);
+            unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/cache/'.$this -> file);
         }
             
     }

@@ -30,17 +30,16 @@
 
         $db -> query("DELETE from `users_lost` WHERE `id` = ?;", $user);
 
-        $subject = 'Активация нового пароля - '.$_SERVER['HTTP_HOST'];
+        $subject = 'Активация нового пароля';
         $text = 'Новый пароль активирован
 
 Новый пароль: '.$q[0]['password'].'
 
-Вы получили данное письмо, так как являетесь зарегистрированным участником проекта.
-С уважением, администрация проекта http://'.$_SERVER['HTTP_HOST'];
+Вы получили данное письмо, так как являетесь зарегистрированным участником проекта.';
 
         $user_d = new users($user, 'login, mail');
         
-        send_mail($_SERVER['HTTP_HOST'],
+        send_mail($config['name'],
                   'robot@'.$_SERVER['HTTP_HOST'],
                   $user_d -> get_name(),
                   $user_d -> get_mail(),
@@ -48,10 +47,10 @@
                   'utf-8',
                   $subject,
                   $text);
+        
+        $db -> query("UPDATE `users` SET `password` = ? WHERE `id` = ?;", encrypt_password($q[0]['password']), $user);
 
         users::auth($user, $q[0]['password']);
-        
-        $db -> query("UPDATE `users` SET `password` = ? WHERE `id` = ?;", $user, encrypt_password($q[0]['password']));
         
         ?>
     

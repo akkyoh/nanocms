@@ -39,7 +39,7 @@ if (strpos($contentType, "multipart") !== false) {
     
     if (isset($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
 
-        $upload = fopen('./system/files/temporary/'.md5($name).'.part', $part == 0 ? "wb" : "ab");
+        $upload = fopen($_SERVER['DOCUMENT_ROOT'].'/system/files/temporary/'.md5($name).'.part', $part == 0 ? "wb" : "ab");
 	
         if ($upload) {
 	
@@ -73,31 +73,31 @@ if (!$part or $part == $parts - 1){
     
     $photo_id = photos::add_photo($user_id, $category, str_replace('.'.$type, '', $name), $size, $image[0], $image[1]);
     
-    rename('./system/files/temporary/'.md5($name).'.part', './system/files/photos/'.$photo_id.'.'.$type); # Перемещаем 
+    rename($_SERVER['DOCUMENT_ROOT'].'/system/files/temporary/'.md5($name).'.part', $_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'.'.$type); # Перемещаем 
     if($image[0] > 1024 or $image[1] > 1024)
-        image_resize('./system/files/photos/'.$photo_id.'.'.$type, 1024, TRUE, './system/files/photos/'.$photo_id.'.'.$type, 1024);
+        image_resize($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'.'.$type, 1024, TRUE, $_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'.'.$type, 1024);
     
     if($type != 'jpg'){
         
-        image_convert('./system/files/photos/'.$photo_id.'.'.$type, './system/files/photos/'.$photo_id.'.jpg', 'jpg');
-        unlink('./system/files/photos/'.$photo_id.'.'.$type);
+        image_convert($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'.'.$type, $_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'.jpg', 'jpg');
+        unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'.'.$type);
         
     }
     
     
-    image_crop('./system/files/photos/'.$photo_id.'.jpg', './system/files/photos/'.$photo_id.'_preview.jpg'); # Предварительный просмотр
-    image_resize('./system/files/photos/'.$photo_id.'_preview.jpg', 100, TRUE, './system/files/photos/'.$photo_id.'_preview.jpg', 100); # Уменьшаем
+    image_crop($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'.jpg', $_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'_preview.jpg'); # Предварительный просмотр
+    image_resize($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'_preview.jpg', 100, TRUE, $_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'_preview.jpg', 100); # Уменьшаем
     
     # Уменьшаем в популярные размеры экранов
     
     if($image[0] > 128 or $image[1] > 128)
-        image_resize('./system/files/photos/'.$photo_id.'.jpg', 128, TRUE, './system/files/photos/'.$photo_id.'_128.jpg', 128); # 128 px
+        image_resize($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'.jpg', 128, TRUE, $_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'_128.jpg', 128); # 128 px
     if($image[0] > 240 or $image[1] > 240)
-        image_resize('./system/files/photos/'.$photo_id.'.jpg', 240, TRUE, './system/files/photos/'.$photo_id.'_240.jpg', 240); # 240 px
+        image_resize($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'.jpg', 240, TRUE, $_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'_240.jpg', 240); # 240 px
     if($image[0] > 360 or $image[1] > 360)
-        image_resize('./system/files/photos/'.$photo_id.'.jpg', 360, TRUE, './system/files/photos/'.$photo_id.'_360.jpg', 360); # 360 px
+        image_resize($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'.jpg', 360, TRUE, $_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'_360.jpg', 360); # 360 px
     if($image[0] > 640 or $image[1] > 640)
-        image_resize('./system/files/photos/'.$photo_id.'.jpg', 640, TRUE, './system/files/photos/'.$photo_id.'_640.jpg', 640); # 640 px
+        image_resize($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'.jpg', 640, TRUE, $_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$photo_id.'_640.jpg', 640); # 640 px
     
 }
 

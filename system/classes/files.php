@@ -6,7 +6,7 @@ class files {
         
         global $mime_types;
         
-        if(substr_count($mime_types[$filetype], 'image') > 0 and file_exists('./system/files/files/'.intval($file_id).'.preview'))
+        if(substr_count($mime_types[$filetype], 'image') > 0 and file_exists($_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.intval($file_id).'.preview'))
             return '/modules/file_download/?id='.intval($file_id).'&amp;preview';
         
         if(substr_count($mime_types[$filetype], 'zip') > 0 or
@@ -187,8 +187,8 @@ class files {
                 
                 foreach($files as $ids)
                 {
-                    unlink('./system/files/files/'.intval($ids['id']).'.download');
-                    unlink('./system/files/files/'.intval($ids['id']).'.preview');
+                    unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.intval($ids['id']).'.download');
+                    unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.intval($ids['id']).'.preview');
                 }
                 
             }elseif(count($files) == 0)
@@ -210,8 +210,8 @@ class files {
         
         if($db -> query("DELETE FROM `files` WHERE `id` = ?;", $id)){
         
-            unlink('./system/files/files/'.intval($id).'.download');
-            unlink('./system/files/files/'.intval($id).'.preview');
+            unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.intval($id).'.download');
+            unlink($_SERVER['DOCUMENT_ROOT'].'/system/files/files/'.intval($id).'.preview');
          
             comments::delete_category($id, 'files');
             

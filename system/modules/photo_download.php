@@ -15,13 +15,13 @@ elseif($size == 'preview')
 else
     $filename = $id.'.jpg';
 
-if(!file_exists('./system/files/photos/'.$filename))
+if(!file_exists($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$filename))
     die('Ошибка, файл не найден.');
 
 if(ob_get_level())
     ob_end_clean();
 
-header('Content-Length: '.filesize('./system/files/photos/'.$filename)); 
+header('Content-Length: '.filesize($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$filename)); 
 //header('Accept-Ranges: bytes');
  
 header('Content-Type: image/jpeg');
@@ -29,7 +29,7 @@ header('Content-Type: image/jpeg');
 if(isset($_GET['download']))
     header('Content-disposition: attachment; filename="'.urlencode(protect_echo($photo_data['name'])).'"');
 
-if ($fd = fopen('./system/files/photos/'.$filename, 'rb')) {
+if ($fd = fopen($_SERVER['DOCUMENT_ROOT'].'/system/files/photos/'.$filename, 'rb')) {
     while (!feof($fd))
         print fread($fd, 4096);
     fclose($fd);

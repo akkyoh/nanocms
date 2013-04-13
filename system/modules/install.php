@@ -74,7 +74,7 @@ else{
     if(file_get_contents('http://nanocms.mobi/modules/licence_check/?domain='.$_SERVER['HTTP_HOST']) == 'TRUE')
          $config['licence'] = 'TRUE';
     
-    if(install::sql('./system/sql/database.sql'))
+    if(install::sql($_SERVER['DOCUMENT_ROOT'].'/system/sql/database.sql'))
     {
         
         if(users::add_user($name, $password, $mail, $sex))
