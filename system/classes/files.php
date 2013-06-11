@@ -306,7 +306,7 @@ class files {
         global $db;
         
         if(empty($id))
-            $db -> query("INSERT INTO `files_category` (`name`, `about`, `parent`, `filetypes`) VALUES (?, ?, ?, ?);", $name, $about, $parent, $filetypes);
+            $db -> query("INSERT INTO `files_category` (`name`, `about`, `parent`, `filetypes`) VALUES (?, ?, ?, ?, ?);", $name, $about, $parent, $filetypes);
         else
             $db -> query("UPDATE `files_category` SET `parent` = ?, `name` = ?, `about` = ?, `filetypes` = ? WHERE `id` = ?", $parent, $name, $about, $filetypes, $id);
         
