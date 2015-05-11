@@ -80,7 +80,7 @@ else{
         if(users::add_user($name, $password, $mail, $sex))
         {
                 
-            $user = new users(1, 'level');
+            $user = new users(1000, 'level');
             $user -> set_level(7);
             $user -> update();
 
